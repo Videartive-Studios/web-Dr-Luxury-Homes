@@ -2,41 +2,47 @@ import { useState } from 'react';
 import { Button } from './ui/button';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
+import parqueadero from '../images/parqueadero.webp';
+import alcoba from '../images/alcoba.webp';
+import piletas from '../images/piletas.webp';
+import cocina from '../images/cocina.webp';
+import salaHarperParadise from '../images/sala-harper-paradise.webp';
+import solariumPenthouse1 from '../images/solarium-penthouse-1.webp';
 
 const galleryImages = [
   {
     id: 1,
-    src: "https://images.unsplash.com/photo-1600760380065-2fcdc9e73007?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjB2aWxsYSUyMGluZmluaXR5JTIwcG9vbCUyMG9jZWFuJTIwdmlld3xlbnwxfHx8fDE3NTc3ODk2NjN8MA&ixlib=rb-4.1.0&q=80&w=1080",
-    alt: "Villa de lujo con piscina infinita frente al mar",
+    src: parqueadero,
+    alt: "Parqueadero del proyecto",
     category: "Exteriores"
   },
   {
     id: 2,
-    src: "https://images.unsplash.com/photo-1694858473117-5e159dcfaf1a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBwZW50aG91c2UlMjBpbnRlcmlvciUyMG1vZGVybiUyMGRlc2lnbnxlbnwxfHx8fDE3NTc3ODk2NjN8MA&ixlib=rb-4.1.0&q=80&w=1080",
-    alt: "Interior moderno de penthouse de lujo",
-    category: "Interiores"
+    src: piletas,
+    alt: "Pileta privada",
+    category: "Exteriores"
   },
   {
     id: 3,
-    src: "https://images.unsplash.com/photo-1672983665896-e02f28d14173?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBob3RlbCUyMHNwYSUyMHdlbGxuZXNzJTIwYW1lbml0aWVzfGVufDF8fHx8MTc1Nzc4OTY2NHww&ixlib=rb-4.1.0&q=80&w=1080",
-    alt: "Spa y wellness de lujo",
+    src: alcoba,
+    alt: "Alcoba de lujo",
     category: "Amenidades"
   },
   {
     id: 4,
-    src: "https://images.unsplash.com/photo-1744408480093-04b32d279a0a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBiZWFjaCUyMGNsdWIlMjBwcml2YXRlJTIwcmVzb3J0fGVufDF8fHx8MTc1Nzc4OTY2NHww&ixlib=rb-4.1.0&q=80&w=1080",
+    src: cocina,
     alt: "Club de playa privado exclusivo",
     category: "Amenidades"
   },
   {
     id: 5,
-    src: "https://images.unsplash.com/photo-1717326996078-cf86b5d979c6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHxtb2Rlcm4lMjBsdXh1cnklMjBhcGFydG1lbnQlMjBiYWxjb255JTIwdmlld3xlbnwxfHx8fDE3NTc3ODk2NjV8MA&ixlib=rb-4.1.0&q=80&w=1080",
-    alt: "Balcón con vista panorámica al mar",
-    category: "Vistas"
+    src: salaHarperParadise,
+    alt: "Sala de estar",
+    category: "Interiores"
   },
   {
     id: 6,
-    src: "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHxsdXh1cnklMjByZWFsJTIwZXN0YXRlJTIwaW52ZXN0bWVudHxlbnwxfHx8fDE3NTc3ODk2Njd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    src: solariumPenthouse1,
     alt: "Desarrollo inmobiliario de lujo",
     category: "Exteriores"
   }

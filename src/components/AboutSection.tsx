@@ -1,5 +1,6 @@
 import { Button } from './ui/button';
 import { Award, Users, MapPin, Star } from 'lucide-react';
+import aereaConjunto from '../images/aerea-conjunto.webp';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 
 const stats = [
@@ -33,7 +34,7 @@ export function AboutSection() {
           {/* Image Side */}
           <div className="relative">
             <ImageWithFallback
-              src="https://images.unsplash.com/photo-1744408480093-04b32d279a0a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBiZWFjaCUyMGNsdWIlMjBwcml2YXRlJTIwcmVzb3J0fGVufDF8fHx8MTc1Nzc4OTY2NHww&ixlib=rb-4.1.0&q=80&w=1080"
+              src={aereaConjunto}
               alt="Dr Luxury Homes - Equipo profesional"
               className="w-full h-96 lg:h-[500px] object-cover rounded-lg shadow-lg"
             />
