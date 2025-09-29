@@ -104,23 +104,43 @@ export function LuxuryAmenities() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {amenities.map((amenity, index) => {
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {amenities.slice(0, 12).map((amenity, index) => {
             const IconComponent = amenity.icon;
             return (
-              <Card key={index} className="bg-gray-900 border-gray-800 hover:border-yellow-500/50 transition-all duration-300 group">
-                <CardContent className="p-6 text-center">
+              <Card key={index} className="bg-gray-900 border-gray-800 hover:border-yellow-500/50 transition-all duration-300 group h-full">
+                <CardContent className="p-6 text-center h-full flex flex-col">
                   <div className="mb-4 flex justify-center">
                     <div className="p-3 bg-yellow-500/10 rounded-full group-hover:bg-yellow-500/20 transition-colors duration-300">
                       <IconComponent className="w-8 h-8 text-yellow-500" />
                     </div>
                   </div>
-                  
                   <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-yellow-500 transition-colors">
                     {amenity.title}
                   </h3>
-                  
-                  <p className="text-gray-400 text-sm leading-relaxed">
+                  <p className="text-gray-400 text-sm leading-relaxed flex-grow">
+                    {amenity.description}
+                  </p>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-6 lg:w-1/2 lg:mx-auto">
+          {amenities.slice(12).map((amenity, index) => {
+            const IconComponent = amenity.icon;
+            return (
+              <Card key={index + 12} className="bg-gray-900 border-gray-800 hover:border-yellow-500/50 transition-all duration-300 group h-full">
+                <CardContent className="p-6 text-center h-full flex flex-col">
+                  <div className="mb-4 flex justify-center">
+                    <div className="p-3 bg-yellow-500/10 rounded-full group-hover:bg-yellow-500/20 transition-colors duration-300">
+                      <IconComponent className="w-8 h-8 text-yellow-500" />
+                    </div>
+                  </div>
+                  <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-yellow-500 transition-colors">
+                    {amenity.title}
+                  </h3>
+                  <p className="text-gray-400 text-sm leading-relaxed flex-grow">
                     {amenity.description}
                   </p>
                 </CardContent>
@@ -136,7 +156,7 @@ export function LuxuryAmenities() {
           </p>
           <button 
             className="bg-yellow-500 text-black hover:bg-yellow-400 transition-all duration-300 font-semibold px-8 py-4 rounded-lg text-lg"
-            onClick={() => window.open('https://wa.me/573135741413', '_blank')}
+            onClick={() => window.open('https://wa.me/13473602417', '_blank')}
           >
             Consulta Disponibilidad por WhatsApp
           </button>

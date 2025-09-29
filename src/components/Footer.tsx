@@ -79,8 +79,8 @@ export function Footer() {
             <div className="space-y-4 mb-8">
               <div className="flex items-center text-gray-400">
                 <Phone className="w-5 h-5 mr-3 text-yellow-500" />
-                <a href="tel:+573135741413" className="hover:text-white transition-colors">
-                  (57) 313 574 1413
+                <a href="tel:+13473602417" className="hover:text-white transition-colors">
+                  +1 (347) 360-2417
                 </a>
               </div>
               
@@ -161,7 +161,7 @@ export function Footer() {
               </a>
               <span>|</span>
               <a 
-                href="https://wa.me/573135741413" 
+                href="https://wa.me/13473602417" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-yellow-500 transition-colors font-medium"
@@ -176,7 +176,7 @@ export function Footer() {
       {/* Floating WhatsApp Button */}
       <div className="fixed bottom-6 right-6 z-40">
         <a
-          href="https://wa.me/573135741413"
+          href="https://wa.me/13473602417"
           target="_blank"
           rel="noopener noreferrer"
           className="w-14 h-14 bg-green-500 hover:bg-green-400 rounded-full flex items-center justify-center text-white shadow-lg hover:shadow-xl transition-all duration-300 animate-pulse hover:animate-none"

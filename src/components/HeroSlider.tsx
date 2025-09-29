@@ -3,27 +3,31 @@ import { ChevronLeft, ChevronRight, MessageCircle } from 'lucide-react';
 import { Button } from './ui/button';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 
+import fachada from '../images/fachada-harper-paradise.webp';
+import piscina from '../images/piscina-harper-paradise.webp';
+import sala from '../images/sala-harper-paradise.webp';
+
 const slides = [
   {
     id: 1,
-    image: "https://images.unsplash.com/photo-1600760380065-2fcdc9e73007?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjB2aWxsYSUyMGluZmluaXR5JTIwcG9vbCUyMG9jZWFuJTIwdmlld3xlbnwxfHx8fDE3NTc3ODk2NjN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    image: fachada,
     title: "Dr Luxury Homes: Tu Experiencia de Lujo Frente al Mar",
     subtitle: "Descubre propiedades exclusivas en los destinos más prestigiosos.",
-    cta: "Asesoría Personalizada por WhatsApp"
+    cta: "Asesoría Personalizada"
   },
   {
     id: 2,
-    image: "https://images.unsplash.com/photo-1694858473117-5e159dcfaf1a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBwZW50aG91c2UlMjBpbnRlcmlvciUyMG1vZGVybiUyMGRlc2lnbnxlbnwxfHx8fDE3NTc3ODk2NjN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    image: piscina,
     title: "Estilo, Confort y Acabados de Lujo Insuperables",
     subtitle: "Cada detalle, cuidadosamente curado para tu bienestar.",
-    cta: "Habla con un Experto (WhatsApp)"
+    cta: "Habla con un Experto"
   },
   {
     id: 3,
-    image: "https://images.unsplash.com/photo-1672983665896-e02f28d14173?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBob3RlbCUyMHNwYSUyMHdlbGxuZXNzJTIwYW1lbml0aWVzfGVufDF8fHx8MTc1Nzc4OTY2NHww&ixlib=rb-4.1.0&q=80&w=1080",
+    image: sala,
     title: "Amenidades de Clase Mundial a Tu Alcance",
     subtitle: "Disfruta de piscinas infinitas, spas y seguridad 24/7.",
-    cta: "Ver Amenidades Exclusivas (WhatsApp)"
+    cta: "Ver Amenidades Exclusivas"
   }
 ];
 

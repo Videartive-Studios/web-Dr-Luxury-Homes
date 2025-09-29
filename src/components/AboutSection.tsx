@@ -111,7 +111,7 @@ export function AboutSection() {
                 size="lg"
                 variant="outline"
                 className="border-black text-black hover:bg-black hover:text-white transition-all duration-300 font-semibold flex-1"
-                onClick={() => window.open('https://wa.me/573135741413', '_blank')}
+                onClick={() => window.open('https://wa.me/13473602417', '_blank')}
               >
                 Contactar Ahora
               </Button>

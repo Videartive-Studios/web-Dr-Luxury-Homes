@@ -43,7 +43,7 @@ export function Header() {
           <div className="hidden lg:flex">
             <Button 
               className="bg-yellow-500 text-black hover:bg-yellow-400 transition-all duration-300 font-semibold px-6"
-              onClick={() => window.open('https://wa.me/573135741413', '_blank')}
+              onClick={() => window.open('https://wa.me/13473602417', '_blank')}
             >
               <Phone className="w-4 h-4 mr-2" />
               Contáctanos
@@ -77,7 +77,7 @@ export function Header() {
                 <Button 
                   className="w-full bg-yellow-500 text-black hover:bg-yellow-400 transition-all duration-300 font-semibold"
                   onClick={() => {
-                    window.open('https://wa.me/573135741413', '_blank');
+                    window.open('https://wa.me/13473602417', '_blank');
                     setIsMenuOpen(false);
                   }}
                 >

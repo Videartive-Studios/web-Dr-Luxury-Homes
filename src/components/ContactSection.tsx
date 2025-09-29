@@ -37,7 +37,7 @@ Mis datos:
 
 Gracias por su atención.`;
 
-    const whatsappUrl = `https://wa.me/573135741413?text=${encodeURIComponent(message)}`;
+    const whatsappUrl = `https://wa.me/13473602417?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
   };
 
@@ -45,14 +45,14 @@ Gracias por su atención.`;
     {
       icon: Phone,
       title: "Teléfono",
-      value: "(57) 313 574 1413",
-      action: () => window.open('tel:+573135741413', '_self')
+      value: "+1 (347) 360-2417",
+      action: () => window.open('tel:+13473602417', '_self')
     },
     {
       icon: MessageCircle,
       title: "WhatsApp",
       value: "Contacto Directo",
-      action: () => window.open('https://wa.me/573135741413', '_blank')
+      action: () => window.open('https://wa.me/13473602417', '_blank')
     },
     {
       icon: Mail,
@@ -137,7 +137,7 @@ Gracias por su atención.`;
                         value={formData.phone}
                         onChange={(e) => handleInputChange('phone', e.target.value)}
                         className="bg-gray-800 border-gray-700 text-white focus:border-yellow-500"
-                        placeholder="+1 (234) 567-8900"
+                        placeholder="+1 (347) 360-2417"
                       />
                     </div>
                     

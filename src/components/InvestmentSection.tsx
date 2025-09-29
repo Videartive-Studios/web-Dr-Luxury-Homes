@@ -167,7 +167,7 @@ export function InvestmentSection() {
               <Button 
                 size="lg"
                 className="bg-yellow-500 text-black hover:bg-yellow-400 transition-all duration-300 font-semibold px-8"
-                onClick={() => window.open('https://wa.me/573135741413', '_blank')}
+                onClick={() => window.open('https://wa.me/13473602417', '_blank')}
               >
                 Consultar Disponibilidad e Inversión
               </Button>
