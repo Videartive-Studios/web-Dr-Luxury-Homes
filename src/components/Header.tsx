@@ -9,9 +9,9 @@ export function Header() {
     'Inicio',
     'Propiedades', 
     'Amenidades',
-    'Inversión',
+    'Inversion',
     'Nosotros',
-    'Galería',
+    'Galeria',
     'Contacto'
   ];
 
