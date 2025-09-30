@@ -21,9 +21,11 @@ export function Header() {
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <h1 className="text-2xl lg:text-3xl font-bold text-white">
-              <span className="text-yellow-500">Dr</span> Luxury Homes
-            </h1>
+            <a href="https://www.drluxuryhomes.com">
+              <h1 className="text-2xl lg:text-3xl font-bold text-white">
+                <span className="text-yellow-500">Dr</span> Luxury Homes
+              </h1>
+            </a>
           </div>
 
           {/* Desktop Navigation */}
@@ -62,11 +64,11 @@ export function Header() {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="lg:hidden bg-black/95 border-t border-yellow-500/20">
-            <nav className="py-4 space-y-4">
+            <nav className="flex flex-col py-4 space-y-4">
               {menuItems.map((item) => (
                 <a
                   key={item}
-                  href={`#${item.toLowerCase().replace(' ', '-')}`}
+                  href={item === 'Inicio' ? '#inicio' : `#${item.toLowerCase().replace(' ', '-')}`}
                   className="block text-white hover:text-yellow-500 transition-colors duration-300 font-medium px-4"
                   onClick={() => setIsMenuOpen(false)}
                 >

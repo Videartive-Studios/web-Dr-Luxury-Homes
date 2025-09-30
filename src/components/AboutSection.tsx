@@ -61,7 +61,7 @@ export function AboutSection() {
               <p>
                 En <strong>Dr Luxury Homes</strong> nos especializamos en conectar a nuestros clientes 
                 con las propiedades de lujo más exclusivas en los destinos turísticos más prestigiosos 
-                de México y el Caribe.
+                de República Dominicana y el Caribe.
               </p>
               
               <p>
@@ -112,7 +112,7 @@ export function AboutSection() {
                 size="lg"
                 variant="outline"
                 className="border-black text-black hover:bg-black hover:text-white transition-all duration-300 font-semibold flex-1"
-                onClick={() => window.open('https://wa.me/13473602417', '_blank')}
+                onClick={() => document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' })}
               >
                 Contactar Ahora
               </Button>

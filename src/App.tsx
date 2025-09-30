@@ -14,7 +14,9 @@ export default function App() {
       <Header />
       
       <main>
-        <HeroSlider />
+        <div id="inicio">
+          <HeroSlider />
+        </div>
         <FeaturedProperties />
         <LuxuryAmenities />
         <InvestmentSection />

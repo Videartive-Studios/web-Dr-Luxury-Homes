@@ -28,8 +28,6 @@ const footerSections = [
   {
     title: "Destinos",
     links: [
-      { label: "Puerto Vallarta", href: "#" },
-      { label: "Marina Vallarta", href: "#" },
       { label: "Zona Hotelera Norte", href: "#" },
       { label: "Conchas Chinas", href: "#" },
       { label: "Punta Cana", href: "#" },
@@ -94,7 +92,7 @@ export function Footer() {
               <div className="flex items-start text-gray-400">
                 <MapPin className="w-5 h-5 mr-3 mt-1 text-yellow-500 flex-shrink-0" />
                 <div>
-                  <p>Marina Vallarta, Jalisco, México</p>
+                  <p>Punta Cana, República Dominicana</p>
                   <p className="mt-1">Bávaro, Punta Cana, R.D.</p>
                 </div>
               </div>

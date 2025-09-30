@@ -1,44 +1,55 @@
 import { useState } from 'react';
+import { useForm, Controller } from 'react-hook-form';
+import emailjs from '@emailjs/browser';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { Label } from './ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { Card, CardContent } from './ui/card';
-import { Phone, Mail, MapPin, MessageCircle, Clock, Globe } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, Globe, Send } from 'lucide-react';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from './ui/alert-dialog';
+
+type FormData = {
+  name: string;
+  email: string;
+  phone: string;
+  propertyType: string;
+  budget: string;
+  message: string;
+};
 
 export function ContactSection() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    propertyType: '',
-    budget: '',
-    message: ''
-  });
+  const [showDialog, setShowDialog] = useState(false);
+  const { register, handleSubmit, reset, control } = useForm<FormData>();
 
-  const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
-  };
+  const onSubmit = (data: FormData) => {
+    // AQUI DEBES AGREGAR TUS CREDENCIALES DE EMAILJS
+    const serviceID = 'service_9lh7aji';
+    const templateID = 'template_q49uqgw';
+    const userID = 'glvjTFd447RNGrYnH';
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    // Crear mensaje para WhatsApp
-    const message = `¡Hola! Me interesa una propiedad de lujo.
-    
-Mis datos:
-• Nombre: ${formData.name}
-• Email: ${formData.email}
-• Teléfono: ${formData.phone}
-• Tipo de propiedad: ${formData.propertyType}
-• Presupuesto: ${formData.budget}
-• Mensaje: ${formData.message}
+    const templateParams = {
+      ...data
+    };
 
-Gracias por su atención.`;
-
-    const whatsappUrl = `https://wa.me/13473602417?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
+    emailjs.send(serviceID, templateID, templateParams, userID)
+      .then((response) => {
+        console.log('SUCCESS!', response.status, response.text);
+        setShowDialog(true);
+        reset();
+      }, (err) => {
+        console.log('FAILED...', err);
+        alert('Ocurrió un error al enviar el mensaje. Por favor, inténtalo de nuevo.');
+      });
   };
 
   const contactInfo = [
@@ -49,23 +60,11 @@ Gracias por su atención.`;
       action: () => window.open('tel:+13473602417', '_self')
     },
     {
-      icon: MessageCircle,
-      title: "WhatsApp",
-      value: "Contacto Directo",
-      action: () => window.open('https://wa.me/13473602417', '_blank')
-    },
-    {
       icon: Mail,
       title: "Email",
       value: "info@drluxuryhomes.com",
       action: () => window.open('mailto:info@drluxuryhomes.com', '_self')
     },
-    {
-      icon: Globe,
-      title: "Ubicaciones",
-      value: "Puerto Vallarta | Punta Cana",
-      action: () => {}
-    }
   ];
 
   return (
@@ -92,7 +91,7 @@ Gracias por su atención.`;
                   Solicita tu <span className="text-yellow-500">Consulta Gratuita</span>
                 </h3>
                 
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <Label htmlFor="name" className="text-white mb-2 block">
@@ -102,8 +101,7 @@ Gracias por su atención.`;
                         id="name"
                         type="text"
                         required
-                        value={formData.name}
-                        onChange={(e) => handleInputChange('name', e.target.value)}
+                        {...register('name')}
                         className="bg-gray-800 border-gray-700 text-white focus:border-yellow-500"
                         placeholder="Tu nombre completo"
                       />
@@ -117,8 +115,7 @@ Gracias por su atención.`;
                         id="email"
                         type="email"
                         required
-                        value={formData.email}
-                        onChange={(e) => handleInputChange('email', e.target.value)}
+                        {...register('email')}
                         className="bg-gray-800 border-gray-700 text-white focus:border-yellow-500"
                         placeholder="tu@email.com"
                       />
@@ -134,8 +131,7 @@ Gracias por su atención.`;
                         id="phone"
                         type="tel"
                         required
-                        value={formData.phone}
-                        onChange={(e) => handleInputChange('phone', e.target.value)}
+                        {...register('phone')}
                         className="bg-gray-800 border-gray-700 text-white focus:border-yellow-500"
                         placeholder="+1 (347) 360-2417"
                       />
@@ -145,18 +141,24 @@ Gracias por su atención.`;
                       <Label htmlFor="propertyType" className="text-white mb-2 block">
                         Tipo de Propiedad
                       </Label>
-                      <Select onValueChange={(value) => handleInputChange('propertyType', value)}>
-                        <SelectTrigger className="bg-gray-800 border-gray-700 text-white focus:border-yellow-500">
-                          <SelectValue placeholder="Selecciona tipo" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="villa">Villa</SelectItem>
-                          <SelectItem value="penthouse">Penthouse</SelectItem>
-                          <SelectItem value="departamento">Departamento</SelectItem>
-                          <SelectItem value="terreno">Terreno/Lote</SelectItem>
-                          <SelectItem value="comercial">Comercial</SelectItem>
-                        </SelectContent>
-                      </Select>
+                      <Controller
+                        name="propertyType"
+                        control={control}
+                        render={({ field }) => (
+                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <SelectTrigger className="bg-gray-800 border-gray-700 text-white focus:border-yellow-500">
+                              <SelectValue placeholder="Selecciona tipo" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="villa">Villa</SelectItem>
+                              <SelectItem value="penthouse">Penthouse</SelectItem>
+                              <SelectItem value="departamento">Departamento</SelectItem>
+                              <SelectItem value="terreno">Terreno/Lote</SelectItem>
+                              <SelectItem value="comercial">Comercial</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        )}
+                      />
                     </div>
                   </div>
 
@@ -164,18 +166,24 @@ Gracias por su atención.`;
                     <Label htmlFor="budget" className="text-white mb-2 block">
                       Presupuesto Aproximado
                     </Label>
-                    <Select onValueChange={(value) => handleInputChange('budget', value)}>
-                      <SelectTrigger className="bg-gray-800 border-gray-700 text-white focus:border-yellow-500">
-                        <SelectValue placeholder="Selecciona rango" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="500k-1m">$500K - $1M USD</SelectItem>
-                        <SelectItem value="1m-2m">$1M - $2M USD</SelectItem>
-                        <SelectItem value="2m-5m">$2M - $5M USD</SelectItem>
-                        <SelectItem value="5m+">$5M+ USD</SelectItem>
-                        <SelectItem value="consultar">Consultar</SelectItem>
-                      </SelectContent>
-                    </Select>
+                                        <Controller
+                      name="budget"
+                      control={control}
+                      render={({ field }) => (
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <SelectTrigger className="bg-gray-800 border-gray-700 text-white focus:border-yellow-500">
+                            <SelectValue placeholder="Selecciona rango" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="500k-1m">$500K - $1M USD</SelectItem>
+                            <SelectItem value="1m-2m">$1M - $2M USD</SelectItem>
+                            <SelectItem value="2m-5m">$2M - $5M USD</SelectItem>
+                            <SelectItem value="5m+">$5M+ USD</SelectItem>
+                            <SelectItem value="consultar">Consultar</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      )}
+                    />
                   </div>
 
                   <div>
@@ -184,8 +192,7 @@ Gracias por su atención.`;
                     </Label>
                     <Textarea
                       id="message"
-                      value={formData.message}
-                      onChange={(e) => handleInputChange('message', e.target.value)}
+                      {...register('message')}
                       className="bg-gray-800 border-gray-700 text-white focus:border-yellow-500 min-h-[120px]"
                       placeholder="Cuéntanos más sobre lo que buscas: ubicación preferida, características específicas, fecha estimada de compra, etc."
                     />
@@ -196,8 +203,8 @@ Gracias por su atención.`;
                     size="lg"
                     className="w-full bg-yellow-500 text-black hover:bg-yellow-400 transition-all duration-300 font-semibold"
                   >
-                    <MessageCircle className="w-5 h-5 mr-2" />
-                    Enviar Consulta por WhatsApp
+                    <Send className="w-5 h-5 mr-2" />
+                    Enviar Consulta
                   </Button>
                 </form>
               </CardContent>
@@ -243,28 +250,22 @@ Gracias por su atención.`;
                 </Card>
               );
             })}
-
-            <Card className="bg-gray-900 border-gray-800">
-              <CardContent className="p-6">
-                <h4 className="text-white font-semibold mb-4 flex items-center">
-                  <MapPin className="w-5 h-5 mr-2 text-yellow-500" />
-                  Oficinas Principales
-                </h4>
-                <div className="space-y-3 text-gray-400 text-sm">
-                  <div>
-                    <p className="font-medium text-white">Puerto Vallarta</p>
-                    <p>Marina Vallarta, Jalisco, México</p>
-                  </div>
-                  <div>
-                    <p className="font-medium text-white">Punta Cana</p>
-                    <p>Bávaro, República Dominicana</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
           </div>
         </div>
       </div>
+      <AlertDialog open={showDialog} onOpenChange={setShowDialog}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>¡Mensaje Enviado!</AlertDialogTitle>
+            <AlertDialogDescription>
+              Gracias por contactarnos. Hemos recibido tu mensaje y te responderemos a la brevedad.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogAction onClick={() => window.location.reload()}>Cerrar</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </section>
   );
 }

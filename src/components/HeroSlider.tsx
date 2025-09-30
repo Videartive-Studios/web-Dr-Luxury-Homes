@@ -86,14 +86,28 @@ export function HeroSlider() {
                   {slide.subtitle}
                 </p>
                 
-                <Button 
-                  size="lg"
-                  className="bg-yellow-500 text-black hover:bg-yellow-400 transition-all duration-300 font-semibold text-lg px-8 py-4 h-auto"
-                  onClick={() => window.open('https://wa.me/573135741413', '_blank')}
-                >
-                  <MessageCircle className="w-5 h-5 mr-2" />
-                  {slide.cta}
-                </Button>
+                                {slide.cta === "Ver Amenidades Exclusivas" ? (
+                  <a href="#amenidades" onClick={(e) => {
+                    e.preventDefault();
+                    document.querySelector('#amenidades')?.scrollIntoView({ behavior: 'smooth' });
+                  }}>
+                    <Button 
+                      size="lg"
+                      className="bg-yellow-500 text-black hover:bg-yellow-400 transition-all duration-300 font-semibold text-lg px-8 py-4 h-auto"
+                    >
+                      {slide.cta}
+                    </Button>
+                  </a>
+                ) : (
+                  <Button 
+                    size="lg"
+                    className="bg-yellow-500 text-black hover:bg-yellow-400 transition-all duration-300 font-semibold text-lg px-8 py-4 h-auto"
+                    onClick={() => window.open('https://wa.me/573135741413', '_blank')}
+                  >
+                    <MessageCircle className="w-5 h-5 mr-2" />
+                    {slide.cta}
+                  </Button>
+                )}
               </div>
             </div>
           </div>
