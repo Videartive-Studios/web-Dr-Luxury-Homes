@@ -1,13 +1,8 @@
-import { useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { useState, useEffect } from 'react';
 import emailjs from '@emailjs/browser';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { Textarea } from './ui/textarea';
-import { Label } from './ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { Card, CardContent } from './ui/card';
-import { Phone, Mail, MapPin, Clock, Globe, Send } from 'lucide-react';
+import { Phone, Mail, Clock, Send } from 'lucide-react';
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -18,38 +13,37 @@ import {
   AlertDialogTitle,
 } from './ui/alert-dialog';
 
-type FormData = {
-  name: string;
-  email: string;
-  phone: string;
-  propertyType: string;
-  budget: string;
-  message: string;
-};
+// Credenciales de EmailJS
+const SERVICE_ID = 'default_service';
+const TEMPLATE_ID = 'template_q49uqgw';
+const USER_ID = 'glvjTFd447RNGrYnH';
 
 export function ContactSection() {
   const [showDialog, setShowDialog] = useState(false);
-  const { register, handleSubmit, reset, control } = useForm<FormData>();
+  const [isSending, setIsSending] = useState(false);
 
-  const onSubmit = (data: FormData) => {
-    // AQUI DEBES AGREGAR TUS CREDENCIALES DE EMAILJS
-    const serviceID = 'service_9lh7aji';
-    const templateID = 'template_q49uqgw';
-    const userID = 'glvjTFd447RNGrYnH';
+  useEffect(() => {
+    emailjs.init(USER_ID);
+  }, []);
 
-    const templateParams = {
-      ...data
-    };
+  const onSubmitHtmlForm = async (event) => {
+    event.preventDefault();
+    setIsSending(true);
 
-    emailjs.send(serviceID, templateID, templateParams, userID)
-      .then((response) => {
-        console.log('SUCCESS!', response.status, response.text);
-        setShowDialog(true);
-        reset();
-      }, (err) => {
-        console.log('FAILED...', err);
-        alert('Ocurrió un error al enviar el mensaje. Por favor, inténtalo de nuevo.');
-      });
+    const form = event.target;
+    if (!form) return;
+
+    try {
+      const result = await emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form);
+      console.log('SUCCESS!', result.status, result.text);
+      setShowDialog(true);
+      form.reset();
+    } catch (err) {
+      console.log('FAILED...', err);
+      alert('Ocurrió un error al enviar el mensaje. Por favor, inténtalo de nuevo.');
+    } finally {
+      setIsSending(false);
+    }
   };
 
   const contactInfo = [
@@ -70,7 +64,7 @@ export function ContactSection() {
   return (
     <section id="contacto" className="py-20 bg-black">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
+        {/* Encabezado */}
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold text-white mb-4">
             <span className="text-yellow-500">Contáctanos</span> Hoy
@@ -82,154 +76,143 @@ export function ContactSection() {
           </p>
         </div>
 
+        {/* Grid principal */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-          {/* Contact Form */}
+          {/* Formulario */}
           <div className="lg:col-span-2">
-            <Card className="bg-gray-900 border-gray-800">
-              <CardContent className="p-8">
-                <h3 className="text-2xl font-bold text-white mb-6">
+            <Card className="bg-[#101828] border border-slate-800 rounded-3xl shadow-xl">
+              <CardContent className="p-10">
+                <h3 className="text-2xl font-bold text-white mb-8">
                   Solicita tu <span className="text-yellow-500">Consulta Gratuita</span>
                 </h3>
-                
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+
+                <form id="contact-form" onSubmit={onSubmitHtmlForm} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <Label htmlFor="name" className="text-white mb-2 block">
+                      <label htmlFor="name" className="text-gray-300 text-sm mb-2 block">
                         Nombre Completo *
-                      </Label>
-                      <Input
-                        id="name"
-                        type="text"
-                        required
-                        {...register('name')}
-                        className="bg-gray-800 border-gray-700 text-white focus:border-yellow-500"
-                        placeholder="Tu nombre completo"
+                      </label>
+                      <input 
+                        type="text" 
+                        name="name" 
+                        id="name" 
+                        required 
+                        placeholder="Tu nombre completo" 
+                        className="w-full p-3 bg-slate-800 text-white rounded-md border border-slate-700 focus:border-yellow-500 focus:ring-yellow-500 focus:ring-1 transition-all"
                       />
                     </div>
                     
                     <div>
-                      <Label htmlFor="email" className="text-white mb-2 block">
+                      <label htmlFor="email" className="text-gray-300 text-sm mb-2 block">
                         Email *
-                      </Label>
-                      <Input
-                        id="email"
-                        type="email"
-                        required
-                        {...register('email')}
-                        className="bg-gray-800 border-gray-700 text-white focus:border-yellow-500"
-                        placeholder="tu@email.com"
+                      </label>
+                      <input 
+                        type="email" 
+                        name="email" 
+                        id="email" 
+                        required 
+                        placeholder="tu@email.com" 
+                        className="w-full p-3 bg-slate-800 text-white rounded-md border border-slate-700 focus:border-yellow-500 focus:ring-yellow-500 focus:ring-1 transition-all"
                       />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <Label htmlFor="phone" className="text-white mb-2 block">
+                      <label htmlFor="phone" className="text-gray-300 text-sm mb-2 block">
                         Teléfono *
-                      </Label>
-                      <Input
-                        id="phone"
-                        type="tel"
-                        required
-                        {...register('phone')}
-                        className="bg-gray-800 border-gray-700 text-white focus:border-yellow-500"
-                        placeholder="+1 (347) 360-2417"
+                      </label>
+                      <input 
+                        type="tel" 
+                        name="phone" 
+                        id="phone" 
+                        required 
+                        placeholder="+1 (347) 360-2417" 
+                        className="w-full p-3 bg-slate-800 text-white rounded-md border border-slate-700 focus:border-yellow-500 focus:ring-yellow-500 focus:ring-1 transition-all"
                       />
                     </div>
-                    
+
                     <div>
-                      <Label htmlFor="propertyType" className="text-white mb-2 block">
+                      <label htmlFor="propertyType" className="text-gray-300 text-sm mb-2 block">
                         Tipo de Propiedad
-                      </Label>
-                      <Controller
-                        name="propertyType"
-                        control={control}
-                        render={({ field }) => (
-                          <Select onValueChange={field.onChange} defaultValue={field.value}>
-                            <SelectTrigger className="bg-gray-800 border-gray-700 text-white focus:border-yellow-500">
-                              <SelectValue placeholder="Selecciona tipo" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="villa">Villa</SelectItem>
-                              <SelectItem value="penthouse">Penthouse</SelectItem>
-                              <SelectItem value="departamento">Departamento</SelectItem>
-                              <SelectItem value="terreno">Terreno/Lote</SelectItem>
-                              <SelectItem value="comercial">Comercial</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        )}
-                      />
+                      </label>
+                      <select 
+                        name="propertyType" 
+                        id="propertyType" 
+                        className="w-full p-3 bg-slate-800 text-white rounded-md border border-slate-700 focus:border-yellow-500 focus:ring-yellow-500 focus:ring-1 transition-all"
+                      >
+                        <option value="">Selecciona tipo</option>
+                        <option value="villa">Villa</option>
+                        <option value="penthouse">Penthouse</option>
+                        <option value="departamento">Departamento</option>
+                        <option value="terreno">Terreno/Lote</option>
+                        <option value="comercial">Comercial</option>
+                      </select>
                     </div>
                   </div>
 
                   <div>
-                    <Label htmlFor="budget" className="text-white mb-2 block">
+                    <label htmlFor="budget" className="text-gray-300 text-sm mb-2 block">
                       Presupuesto Aproximado
-                    </Label>
-                                        <Controller
-                      name="budget"
-                      control={control}
-                      render={({ field }) => (
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
-                          <SelectTrigger className="bg-gray-800 border-gray-700 text-white focus:border-yellow-500">
-                            <SelectValue placeholder="Selecciona rango" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="500k-1m">$500K - $1M USD</SelectItem>
-                            <SelectItem value="1m-2m">$1M - $2M USD</SelectItem>
-                            <SelectItem value="2m-5m">$2M - $5M USD</SelectItem>
-                            <SelectItem value="5m+">$5M+ USD</SelectItem>
-                            <SelectItem value="consultar">Consultar</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      )}
-                    />
+                    </label>
+                    <select 
+                      name="budget" 
+                      id="budget" 
+                      className="w-full p-3 bg-slate-800 text-white rounded-md border border-slate-700 focus:border-yellow-500 focus:ring-yellow-500 focus:ring-1 transition-all"
+                    >
+                      <option value="">Selecciona rango</option>
+                      <option value="500k-1m">$500K - $1M USD</option>
+                      <option value="1m-2m">$1M - $2M USD</option>
+                      <option value="2m-5m">$2M - $5M USD</option>
+                      <option value="5m+">$5M+ USD</option>
+                      <option value="consultar">Consultar</option>
+                    </select>
                   </div>
 
                   <div>
-                    <Label htmlFor="message" className="text-white mb-2 block">
+                    <label htmlFor="message" className="text-gray-300 text-sm mb-2 block">
                       Mensaje Adicional
-                    </Label>
-                    <Textarea
-                      id="message"
-                      {...register('message')}
-                      className="bg-gray-800 border-gray-700 text-white focus:border-yellow-500 min-h-[120px]"
+                    </label>
+                    <textarea 
+                      name="message" 
+                      id="message" 
                       placeholder="Cuéntanos más sobre lo que buscas: ubicación preferida, características específicas, fecha estimada de compra, etc."
-                    />
+                      className="w-full p-3 bg-slate-800 text-white rounded-md border border-slate-700 focus:border-yellow-500 focus:ring-yellow-500 focus:ring-1 transition-all min-h-[120px]"
+                    ></textarea>
                   </div>
 
-                  <Button 
+                  <button 
                     type="submit"
-                    size="lg"
-                    className="w-full bg-yellow-500 text-black hover:bg-yellow-400 transition-all duration-300 font-semibold"
+                    className="w-full bg-yellow-500 text-black font-semibold py-3 rounded-md hover:bg-yellow-400 transition-all flex items-center justify-center disabled:bg-gray-400 disabled:cursor-not-allowed"
+                    disabled={isSending}
                   >
                     <Send className="w-5 h-5 mr-2" />
-                    Enviar Consulta
-                  </Button>
+                    {isSending ? 'Enviando...' : 'Enviar Consulta'}
+                  </button>
                 </form>
               </CardContent>
             </Card>
           </div>
 
-          {/* Contact Information */}
+          {/* Columna derecha */}
           <div className="space-y-6">
-            <Card className="bg-yellow-500 text-black">
-              <CardContent className="p-6 text-center">
+            <Card className="bg-yellow-500 text-black rounded-2xl shadow-lg">
+              <CardContent className="p-8 text-center">
                 <Clock className="w-12 h-12 mx-auto mb-4" />
                 <h3 className="text-xl font-bold mb-2">Atención Inmediata</h3>
-                <p className="font-medium">
-                  Respuesta en menos de 2 horas
-                </p>
-                <p className="text-sm mt-2">
-                  Lun - Dom: 8:00 AM - 10:00 PM
-                </p>
+                <p className="font-medium">Respuesta en menos de 2 horas</p>
+                <p className="text-sm mt-2">Lun - Dom: 8:00 AM - 10:00 PM</p>
               </CardContent>
             </Card>
 
             {contactInfo.map((info, index) => {
               const IconComponent = info.icon;
               return (
-                <Card key={index} className="bg-gray-900 border-gray-800 hover:border-yellow-500/50 transition-colors cursor-pointer" onClick={info.action}>
+                <Card 
+                  key={index} 
+                  className="bg-[#101828] border border-slate-800 hover:border-yellow-500/50 transition-colors cursor-pointer rounded-3xl"
+                  onClick={info.action}
+                >
                   <CardContent className="p-6">
                     <div className="flex items-center space-x-4">
                       <div className="flex-shrink-0">
@@ -238,12 +221,8 @@ export function ContactSection() {
                         </div>
                       </div>
                       <div>
-                        <h4 className="text-white font-semibold mb-1">
-                          {info.title}
-                        </h4>
-                        <p className="text-gray-400">
-                          {info.value}
-                        </p>
+                        <h4 className="text-white font-semibold mb-1">{info.title}</h4>
+                        <p className="text-gray-400">{info.value}</p>
                       </div>
                     </div>
                   </CardContent>
@@ -253,6 +232,8 @@ export function ContactSection() {
           </div>
         </div>
       </div>
+
+      {/* Dialogo de confirmación */}
       <AlertDialog open={showDialog} onOpenChange={setShowDialog}>
         <AlertDialogContent>
           <AlertDialogHeader>
@@ -262,7 +243,7 @@ export function ContactSection() {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogAction onClick={() => window.location.reload()}>Cerrar</AlertDialogAction>
+            <AlertDialogAction onClick={() => setShowDialog(false)}>Cerrar</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
