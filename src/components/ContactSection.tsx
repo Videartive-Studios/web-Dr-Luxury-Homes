@@ -80,8 +80,8 @@ export function ContactSection() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* Formulario */}
           <div className="lg:col-span-2">
-            <Card className="bg-[#101828] border border-slate-800 rounded-3xl shadow-xl">
-              <CardContent className="p-10">
+            <Card className="bg-gray-800 border border-slate-800 rounded-lg shadow-xl">
+              <CardContent className="p-6">
                 <h3 className="text-2xl font-bold text-white mb-8">
                   Solicita tu <span className="text-yellow-500">Consulta Gratuita</span>
                 </h3>
@@ -97,8 +97,8 @@ export function ContactSection() {
                         name="name" 
                         id="name" 
                         required 
-                        placeholder="Tu nombre completo" 
-                        className="w-full p-3 bg-slate-800 text-white rounded-md border border-slate-700 focus:border-yellow-500 focus:ring-yellow-500 focus:ring-1 transition-all"
+                        placeholder="Nombre completo" 
+                        className="w-full p-3 bg-gray-800 text-white rounded-2xl border border-gray-300 focus:border-yellow-500 focus:ring-yellow-500 focus:ring-1 transition-all"
                       />
                     </div>
                     
@@ -112,7 +112,7 @@ export function ContactSection() {
                         id="email" 
                         required 
                         placeholder="tu@email.com" 
-                        className="w-full p-3 bg-slate-800 text-white rounded-md border border-slate-700 focus:border-yellow-500 focus:ring-yellow-500 focus:ring-1 transition-all"
+                        className="w-full p-3 bg-gray-800 text-white rounded-2xl border border-gray-300 focus:border-yellow-500 focus:ring-yellow-500 focus:ring-1 transition-all"
                       />
                     </div>
                   </div>
@@ -128,7 +128,7 @@ export function ContactSection() {
                         id="phone" 
                         required 
                         placeholder="+1 (347) 360-2417" 
-                        className="w-full p-3 bg-slate-800 text-white rounded-md border border-slate-700 focus:border-yellow-500 focus:ring-yellow-500 focus:ring-1 transition-all"
+                        className="w-full p-3 bg-gray-800 text-white rounded-2xl border border-gray-300 focus:border-yellow-500 focus:ring-yellow-500 focus:ring-1 transition-all"
                       />
                     </div>
 
@@ -139,7 +139,7 @@ export function ContactSection() {
                       <select 
                         name="propertyType" 
                         id="propertyType" 
-                        className="w-full p-3 bg-slate-800 text-white rounded-md border border-slate-700 focus:border-yellow-500 focus:ring-yellow-500 focus:ring-1 transition-all"
+                        className="w-full p-3 bg-gray-800 text-white rounded-2xl border border-gray-300 focus:border-yellow-500 focus:ring-yellow-500 focus:ring-1 transition-all"
                       >
                         <option value="">Selecciona tipo</option>
                         <option value="villa">Villa</option>
@@ -158,7 +158,7 @@ export function ContactSection() {
                     <select 
                       name="budget" 
                       id="budget" 
-                      className="w-full p-3 bg-slate-800 text-white rounded-md border border-slate-700 focus:border-yellow-500 focus:ring-yellow-500 focus:ring-1 transition-all"
+                      className="w-full p-3 bg-gray-800 text-white rounded-2xl border border-gray-300 focus:border-yellow-500 focus:ring-yellow-500 focus:ring-1 transition-all"
                     >
                       <option value="">Selecciona rango</option>
                       <option value="500k-1m">$500K - $1M USD</option>
@@ -177,13 +177,13 @@ export function ContactSection() {
                       name="message" 
                       id="message" 
                       placeholder="Cuéntanos más sobre lo que buscas: ubicación preferida, características específicas, fecha estimada de compra, etc."
-                      className="w-full p-3 bg-slate-800 text-white rounded-md border border-slate-700 focus:border-yellow-500 focus:ring-yellow-500 focus:ring-1 transition-all min-h-[120px]"
+                      className="w-full p-3 bg-gray-800 text-white rounded-2xl border border-gray-300 focus:border-yellow-500 focus:ring-yellow-500 focus:ring-1 transition-all min-h-[120px]"
                     ></textarea>
                   </div>
 
                   <button 
                     type="submit"
-                    className="w-full bg-yellow-500 text-black font-semibold py-3 rounded-md hover:bg-yellow-400 transition-all flex items-center justify-center disabled:bg-gray-400 disabled:cursor-not-allowed"
+                    className="w-full bg-yellow-500 text-black font-semibold py-3 rounded-2xl hover:bg-yellow-400 transition-all flex items-center justify-center disabled:bg-gray-400 disabled:cursor-not-allowed"
                     disabled={isSending}
                   >
                     <Send className="w-5 h-5 mr-2" />
@@ -196,7 +196,7 @@ export function ContactSection() {
 
           {/* Columna derecha */}
           <div className="space-y-6">
-            <Card className="bg-yellow-500 text-black rounded-2xl shadow-lg">
+            <Card className="bg-yellow-500 text-black rounded-lg shadow-lg">
               <CardContent className="p-8 text-center">
                 <Clock className="w-12 h-12 mx-auto mb-4" />
                 <h3 className="text-xl font-bold mb-2">Atención Inmediata</h3>
@@ -210,7 +210,7 @@ export function ContactSection() {
               return (
                 <Card 
                   key={index} 
-                  className="bg-[#101828] border border-slate-800 hover:border-yellow-500/50 transition-colors cursor-pointer rounded-3xl"
+                  className="bg-gray-800 border border-slate-800 hover:border-yellow-500/50 transition-colors cursor-pointer rounded-lg"
                   onClick={info.action}
                 >
                   <CardContent className="p-6">
